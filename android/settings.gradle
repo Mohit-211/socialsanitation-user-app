@@ -1,0 +1,5 @@
+def modulesRoot = settings.hasProperty('extDir') ? extDir : '../ext/lib'
+rootProject.name = 'PoolSpaEmployee'
+apply from: file("${modulesRoot}/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)
+include ':app'
+includeBuild("${modulesRoot}/@react-native/gradle-plugin")
