@@ -1,14 +1,87 @@
+# Social Sanitation customer app (React Native)
 
-# macOS
-.DS_Store
+# ---------------------------------------------------------------
+# Secrets: signing keys, passwords, certificates, env files
+# Never commit these. Keep them in a password manager or CI secrets.
+# ---------------------------------------------------------------
+*.keystore
+!debug.keystore
+*.jks
+*.p12
+*.pfx
+*.p8
+*.pem
+*.key
+*.cer
+*.certSigningRequest
+*.mobileprovision
+*.provisionprofile
+**/signing.properties
+**/keystore.properties
+**/KEYSTORE_CREDENTIALS*
+*service-account*.json
+play-store-credentials*.json
+.env
+.env.*
+!.env.example
 
-# Build directories
+# Firebase native config files. The app no longer uses Firebase; this keeps old copies out of git.
+**/google-services.json
+**/GoogleService-Info.plist
+
+# ---------------------------------------------------------------
+# Local machine config
+# ---------------------------------------------------------------
+local.properties
+**/.xcode.env.local
+
+# ---------------------------------------------------------------
+# Dependencies
+# ---------------------------------------------------------------
+node_modules/
+.npm/
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+**/Pods/
+/vendor/bundle/
+
+# ---------------------------------------------------------------
+# Build output and release artifacts
+# ---------------------------------------------------------------
 build/
-dist/
-web-build/
-coverage/
+*.jsbundle
+android/app/src/main/assets/index.android.bundle*
+*.apk
+*.aab
+*.ipa
+*.dSYM
+*.dSYM.zip
+android/app/release/
 
-# Xcode
+# ---------------------------------------------------------------
+# Android / Gradle
+# ---------------------------------------------------------------
+.gradle/
+.kotlin/
+.cxx/
+.externalNativeBuild/
+captures/
+*.hprof
+
+# ---------------------------------------------------------------
+# iOS / Xcode
+# ---------------------------------------------------------------
+DerivedData/
+xcuserdata/
+*.xcuserstate
+*.xccheckout
+*.moved-aside
+*.hmap
 *.pbxuser
 !default.pbxuser
 *.mode1v3
@@ -17,79 +90,49 @@ coverage/
 !default.mode2v3
 *.perspectivev3
 !default.perspectivev3
-xcuserdata/
-*.xccheckout
-*.moved-aside
-DerivedData/
-*.hmap
-*.ipa
-*.xcuserstate
-*.xcscmblueprint
 
-# React Native / Metro
-.metro-health-check*
-.rncache/
-*.jsbundle
-*.stackdump
-
-# Node.js
-node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-
-# Environment variables
-.env
-.env.*
-!.env.example
-
-# Android / Gradle
-.gradle/
-local.properties
-*.iml
-*.hprof
-.cxx/
-*.apk
-*.aab
-
-# Android signing credentials
-*.keystore
-*.jks
-KEYSTORE_CREDENTIALS.md
-android/KEYSTORE_CREDENTIALS.md
-android/KEYSTORE_DETAILS.md
-
-# Android generated files
-android/.gradle/
-android/app/build/
-android/build/
-
-# iOS / CocoaPods
-**/Pods/
-/vendor/bundle/
-
-# Fastlane
+# ---------------------------------------------------------------
+# fastlane
+# ---------------------------------------------------------------
 **/fastlane/report.xml
 **/fastlane/Preview.html
 **/fastlane/screenshots
 **/fastlane/test_output
 
-# IDEs
+# ---------------------------------------------------------------
+# Metro / Watchman
+# ---------------------------------------------------------------
+.metro-health-check*
+.watchman-cookie-*
+
+# ---------------------------------------------------------------
+# Tests and coverage
+# ---------------------------------------------------------------
+/coverage
+.nyc_output/
+
+# ---------------------------------------------------------------
+# Logs and temporary files
+# ---------------------------------------------------------------
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+tmp/
+*.tmp
+
+# ---------------------------------------------------------------
+# Editors and operating systems
+# ---------------------------------------------------------------
 .idea/
-.vscode/
-
-# TypeScript
-*.tsbuildinfo
-
-# Expo (if applicable)
-.expo/
-.expo-shared/
-
-# Yarn Berry
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/sdks
-!.yarn/versions
+.vscode/*
+!.vscode/extensions.json
+*.iml
+*.swp
+*.swo
+*~
+.DS_Store
+._*
+Thumbs.db
+desktop.ini

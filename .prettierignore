@@ -1,0 +1,7 @@
+# Prettier also skips everything in .gitignore.
+
+# Written by npm
+package-lock.json
+
+# Written by Xcode
+**/*.xcassets/

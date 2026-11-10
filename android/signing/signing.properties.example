@@ -1,0 +1,7 @@
+# Copy to signing.properties (git-ignored) and fill in the upload key details.
+# Release builds read this file; debug builds don't need it.
+# storeFile is relative to android/app.
+storeFile=release.keystore
+keyAlias=
+storePassword=
+keyPassword=

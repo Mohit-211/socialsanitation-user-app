@@ -1,0 +1,37 @@
+// The Lucide icons the app uses, each imported from its own file. The package's main entry
+// re-exports every Lucide icon, and Metro would bundle all of them.
+export { default as ArrowLeft } from 'lucide-react-native/icons/arrow-left';
+export { default as Bell } from 'lucide-react-native/icons/bell';
+export { default as Calendar } from 'lucide-react-native/icons/calendar';
+export { default as CalendarDays } from 'lucide-react-native/icons/calendar-days';
+export { default as Check } from 'lucide-react-native/icons/check';
+export { default as CheckCheck } from 'lucide-react-native/icons/check-check';
+export { default as ChevronDown } from 'lucide-react-native/icons/chevron-down';
+export { default as ChevronRight } from 'lucide-react-native/icons/chevron-right';
+export { default as ChevronUp } from 'lucide-react-native/icons/chevron-up';
+export { default as CircleAlert } from 'lucide-react-native/icons/circle-alert';
+export { default as CircleUserRound } from 'lucide-react-native/icons/circle-user-round';
+export { default as ClipboardList } from 'lucide-react-native/icons/clipboard-list';
+export { default as Clock } from 'lucide-react-native/icons/clock';
+export { default as CreditCard } from 'lucide-react-native/icons/credit-card';
+export { default as ExternalLink } from 'lucide-react-native/icons/external-link';
+export { default as Eye } from 'lucide-react-native/icons/eye';
+export { default as EyeOff } from 'lucide-react-native/icons/eye-off';
+export { default as FileText } from 'lucide-react-native/icons/file-text';
+export { default as House } from 'lucide-react-native/icons/house';
+export { default as Inbox } from 'lucide-react-native/icons/inbox';
+export { default as Info } from 'lucide-react-native/icons/info';
+export { default as KeyRound } from 'lucide-react-native/icons/key-round';
+export { default as LogOut } from 'lucide-react-native/icons/log-out';
+export { default as Mail } from 'lucide-react-native/icons/mail';
+export { default as MapPin } from 'lucide-react-native/icons/map-pin';
+export { default as MessageCircleQuestionMark } from 'lucide-react-native/icons/message-circle-question-mark';
+export { default as PenLine } from 'lucide-react-native/icons/pen-line';
+export { default as Phone } from 'lucide-react-native/icons/phone';
+export { default as Plus } from 'lucide-react-native/icons/plus';
+export { default as ScrollText } from 'lucide-react-native/icons/scroll-text';
+export { default as ShieldCheck } from 'lucide-react-native/icons/shield-check';
+export { default as Star } from 'lucide-react-native/icons/star';
+export { default as Trash2 } from 'lucide-react-native/icons/trash-2';
+export { default as UserCog } from 'lucide-react-native/icons/user-cog';
+export { default as X } from 'lucide-react-native/icons/x';

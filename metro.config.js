@@ -1,21 +1,11 @@
-const path = require('path');
-const { getDefaultConfig } = require('@react-native/metro-config');
+const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config');
 
-const config = getDefaultConfig(__dirname);
+/**
+ * Metro configuration
+ * https://reactnative.dev/docs/metro
+ *
+ * @type {import('@react-native/metro-config').MetroConfig}
+ */
+const config = {};
 
-config.watchFolders = [path.resolve(__dirname, '../node_modules')];
-config.resolver.resolveRequest = (context, moduleName, platform) => {
-  if (moduleName === 'axios') {
-    return context.resolveRequest(
-      context,
-      'axios/dist/browser/axios.cjs',
-      platform
-    );
-  }
-  return context.resolveRequest(context, moduleName, platform);
-};
-config.resolver.extraNodeModules = {
-  'react-native': path.resolve(__dirname, '../node_modules/react-native'),
-};
-
-module.exports = config;
+module.exports = mergeConfig(getDefaultConfig(__dirname), config);

@@ -1,5 +1,9 @@
 <resources>
-    <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+    <!-- The app has a single light design, so it stays light when the phone is in dark mode. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:editTextBackground">@drawable/rn_edit_text_material</item>
+        <item name="android:windowBackground">@color/brand_background</item>
+        <!-- Dark status-bar icons over the light screens, before and after JavaScript loads. -->
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 </resources>

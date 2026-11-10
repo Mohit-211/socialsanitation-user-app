@@ -1,68 +1,97 @@
 apply plugin: "com.android.application"
 apply plugin: "org.jetbrains.kotlin.android"
 apply plugin: "com.facebook.react"
-apply plugin: "com.google.gms.google-services"
+apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
 
 react {
-    root = file("../../")
-    reactNativeDir = file("../../node_modules/react-native")
-    codegenDir = file("../../node_modules/@react-native/codegen")
-    cliFile = file("../../node_modules/react-native/cli.js")
+    autolinkLibrariesWithApp()
+}
+
+/**
+ * Set this to true to run Proguard on Release builds to minify the Java bytecode.
+ */
+def enableProguardInReleaseBuilds = false
+
+/**
+ * The JavaScriptCore flavour, used only when Hermes is turned off in gradle.properties.
+ */
+def jscFlavor = 'io.github.react-native-community:jsc-android:2026004.+'
+
+// Release signing values live outside git, in android/signing/signing.properties.
+def signingPropertiesFile = rootProject.file("signing/signing.properties")
+def signingProperties = new Properties()
+if (signingPropertiesFile.exists()) {
+    signingProperties.load(new FileInputStream(signingPropertiesFile))
 }
 
 android {
-    namespace "com.socialsanitationapp"
-
-    compileSdk rootProject.ext.compileSdkVersion
     ndkVersion rootProject.ext.ndkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdk rootProject.ext.compileSdkVersion
 
+    namespace "com.socialsanitationapp"
     defaultConfig {
         applicationId "com.socialsanitationapp"
-        minSdk rootProject.ext.minSdkVersion
-        targetSdk rootProject.ext.targetSdkVersion
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 5
         versionName "1.5"
-        multiDexEnabled true
     }
-
+    sourceSets {
+        // The fonts live once, in assets/fonts at the project root; Android bundles them from there.
+        main.assets.srcDirs += "../../assets"
+    }
     packaging {
         jniLibs {
-            useLegacyPackaging true
+            // Uncompressed, page-aligned native libraries (Google Play's 16 KB page size rule).
+            useLegacyPackaging = false
         }
     }
-
-    signingConfigs {
-        release {
-            if (project.hasProperty('MYAPP_UPLOAD_STORE_FILE')) {
-                storeFile file(MYAPP_UPLOAD_STORE_FILE)
-                storePassword MYAPP_UPLOAD_STORE_PASSWORD
-                keyAlias MYAPP_UPLOAD_KEY_ALIAS
-                keyPassword MYAPP_UPLOAD_KEY_PASSWORD
+    // Windows caps file paths at 260 characters. The New Architecture's C++ build nests deep
+    // folders under android/app/.cxx, and react-native-gesture-handler 3 can run past the cap.
+    // On Windows the C++ build runs in a short folder instead.
+    if (System.getProperty("os.name").toLowerCase().contains("windows")) {
+        externalNativeBuild {
+            cmake {
+                buildStagingDirectory = new File(System.getProperty("user.home"), ".cxx/ss-customer")
             }
         }
     }
-
+    signingConfigs {
+        debug {
+            storeFile file('debug.keystore')
+            storePassword 'android'
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+        }
+        release {
+            if (signingPropertiesFile.exists()) {
+                storeFile file(signingProperties['storeFile'])
+                storePassword signingProperties['storePassword']
+                keyAlias signingProperties['keyAlias']
+                keyPassword signingProperties['keyPassword']
+            }
+        }
+    }
     buildTypes {
-        debug {}
+        debug {
+            signingConfig signingConfigs.debug
+        }
         release {
             signingConfig signingConfigs.release
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            minifyEnabled enableProguardInReleaseBuilds
+            proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
         }
     }
 }
 
 dependencies {
+    // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
-    implementation("androidx.core:core-ktx:1.12.0")
-    implementation("androidx.activity:activity-ktx:1.8.2")
 
     if (hermesEnabled.toBoolean()) {
         implementation("com.facebook.react:hermes-android")
     } else {
-        implementation "org.webkit:android-jsc:+"
+        implementation jscFlavor
     }
 }
-
-apply from: file("../../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle")
-applyNativeModulesAppBuildGradle(project)
