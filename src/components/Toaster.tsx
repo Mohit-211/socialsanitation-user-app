@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 import Toast, {
   type ToastConfig,
   type ToastConfigParams,
@@ -16,15 +16,22 @@ const bar = {
 
 function Message({
   text1,
+  text2,
   type,
+  onPress,
 }: ToastConfigParams<unknown> & { type: keyof typeof bar }) {
   return (
-    <View accessibilityRole="alert" style={styles.toast}>
+    <Pressable
+      accessibilityRole="alert"
+      onPress={() => onPress?.()}
+      style={styles.toast}
+    >
       <View style={[styles.bar, { backgroundColor: bar[type] }]} />
-      <AppText variant="smallStrong" style={styles.text}>
-        {text1}
-      </AppText>
-    </View>
+      <View style={styles.text}>
+        <AppText variant="smallStrong">{text1}</AppText>
+        {text2 ? <AppText variant="small">{text2}</AppText> : null}
+      </View>
+    </Pressable>
   );
 }
 
@@ -45,6 +52,18 @@ export const notify = {
   error: (message: string) =>
     Toast.show({ type: 'error', text1: message, visibilityTime: 5000 }),
   info: (message: string) => Toast.show({ type: 'info', text1: message }),
+  /** A push that came while the app was open. A tap hides it and calls `onPress`. */
+  push: (title: string, body: string | undefined, onPress: () => void) =>
+    Toast.show({
+      type: 'info',
+      text1: title,
+      text2: body,
+      visibilityTime: 6000,
+      onPress: () => {
+        Toast.hide();
+        onPress();
+      },
+    }),
 };
 
 const styles = StyleSheet.create({
@@ -57,5 +76,10 @@ const styles = StyleSheet.create({
     ...shadow.editorial,
   },
   bar: { width: 4 },
-  text: { flex: 1, paddingVertical: space.md, paddingHorizontal: space.md },
+  text: {
+    flex: 1,
+    gap: space.xxs,
+    paddingVertical: space.md,
+    paddingHorizontal: space.md,
+  },
 });

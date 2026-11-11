@@ -5,12 +5,18 @@ import type { CodePurpose, SignInResult } from './types';
 // The API keeps the phone's time zone on the session.
 const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-export const signIn = async (email: string, password: string) =>
+/** `pushToken` is the phone's FCM token: the API sends this session's push notifications to it. */
+export const signIn = async (
+  email: string,
+  password: string,
+  pushToken: string | null,
+) =>
   (
     await http.post<SignInResult>('/auth/client/login', {
       email,
       password,
       timezone,
+      fcm_token: pushToken ?? undefined,
     })
   ).data;
 

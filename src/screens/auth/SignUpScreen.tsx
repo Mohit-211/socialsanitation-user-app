@@ -14,6 +14,7 @@ import Screen from '../../components/Screen';
 import { notify } from '../../components/Toaster';
 import type { RootScreenProps } from '../../navigation/types';
 import { space } from '../../theme';
+import { openLink, PRIVACY_URL, TERMS_URL } from '../../utils/links';
 import { EMAIL, isValidPassword, PASSWORD_HINT } from '../../utils/validation';
 
 type Form = {
@@ -175,14 +176,11 @@ export default function SignUpScreen({
         <AppText variant="caption">
           By creating an account you agree to our
         </AppText>
-        <LinkButton
-          title="Terms"
-          onPress={() => navigation.navigate('Content', { kind: 'terms' })}
-        />
+        <LinkButton title="Terms" onPress={() => openLink(TERMS_URL)} />
         <AppText variant="caption">and</AppText>
         <LinkButton
           title="Privacy Policy"
-          onPress={() => navigation.navigate('PrivacyPolicy')}
+          onPress={() => openLink(PRIVACY_URL)}
         />
       </View>
     </Screen>

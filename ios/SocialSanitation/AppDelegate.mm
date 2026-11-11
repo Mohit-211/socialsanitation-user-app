@@ -1,11 +1,15 @@
 #import "AppDelegate.h"
 
+#import <FirebaseCore/FirebaseCore.h>
+
 // The app uses the UIScene life cycle, which the iOS 27 SDK requires.
 // React Native is started by SceneDelegate, declared in Info.plist.
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  // Firebase, for push notifications, set up from GoogleService-Info.plist before React Native starts.
+  [FIRApp configure];
   return YES;
 }
 

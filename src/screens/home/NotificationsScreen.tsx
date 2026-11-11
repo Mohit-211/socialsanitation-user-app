@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Linking, StyleSheet, View } from 'react-native';
 import { errorMessage } from '../../api/errors';
 import {
   getNotifications,
@@ -11,12 +11,16 @@ import AppText from '../../components/AppText';
 import Card from '../../components/Card';
 import Header from '../../components/Header';
 import IconButton from '../../components/IconButton';
+import LinkButton from '../../components/LinkButton';
 import ListView from '../../components/ListView';
+import Notice from '../../components/Notice';
 import Screen from '../../components/Screen';
 import { notify } from '../../components/Toaster';
 import { CheckCheck, Inbox, X } from '../../components/icons';
 import { usePagedList } from '../../hooks/usePagedList';
+import { useRequest } from '../../hooks/useRequest';
 import type { RootScreenProps, TabParamList } from '../../navigation/types';
+import { pushAllowed } from '../../push/push';
 import { colors, space, styles as theme } from '../../theme';
 import { formatDateTime } from '../../utils/date';
 
@@ -40,6 +44,8 @@ export default function NotificationsScreen({
   navigation,
 }: RootScreenProps<'Notifications'>) {
   const list = usePagedList(getNotifications);
+  // Checked again on coming back from Settings.
+  const push = useRequest(pushAllowed);
 
   // Reading a notification removes it from the inbox, so it leaves the list at once.
   const read = (item: AppNotification) => {
@@ -89,11 +95,25 @@ export default function NotificationsScreen({
       <ListView
         list={list}
         keyOf={item => String(item.id)}
+        header={
+          push.data === false ? (
+            <View style={styles.pushOff}>
+              <Notice tone="info" title="Push notifications are off">
+                Turn them on in Settings to hear about your bookings, documents
+                and invoices as they happen.
+              </Notice>
+              <LinkButton
+                title="Open Settings"
+                onPress={() => Linking.openSettings()}
+              />
+            </View>
+          ) : undefined
+        }
         empty={{
           icon: Inbox,
           title: "You're all caught up",
           message:
-            'News about your visits, documents and invoices shows up here.',
+            'News about your bookings, documents and invoices shows up here.',
         }}
         renderItem={item => (
           <Card
@@ -126,6 +146,7 @@ export default function NotificationsScreen({
 }
 
 const styles = StyleSheet.create({
+  pushOff: { gap: space.xs, marginBottom: space.lg },
   row: { flexDirection: 'row', alignItems: 'flex-start', gap: space.sm },
   dot: { marginTop: 9 },
   text: { flex: 1, gap: space.xxs },

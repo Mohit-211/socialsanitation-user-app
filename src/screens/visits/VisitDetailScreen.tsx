@@ -48,7 +48,7 @@ export default function VisitDetailScreen({
 
   return (
     <Screen
-      header={<Header title={data ? `Visit ${data.number}` : 'Visit'} />}
+      header={<Header title={data ? `Booking ${data.number}` : 'Booking'} />}
       refreshing={visit.refreshing}
       onRefresh={visit.refresh}
       footer={
@@ -82,7 +82,7 @@ function VisitDetails({
     <>
       <View style={styles.section}>
         <Heading
-          eyebrow={visit.type === 'recurring' ? 'Repeating visit' : 'Visit'}
+          eyebrow={visit.type === 'recurring' ? 'Recurring booking' : 'Booking'}
           title={visitTitle(visit)}
           size="display"
         />
@@ -99,7 +99,7 @@ function VisitDetails({
         <Notice
           title={
             visit.status === 'CANCELLED'
-              ? 'Why it was cancelled'
+              ? 'Why it was canceled'
               : 'Why it was declined'
           }
         >

@@ -27,7 +27,7 @@ export default function EnquiriesScreen({
       scroll={false}
       header={
         <Header
-          title="Enquiries"
+          title="Inquiries"
           right={
             <IconButton
               icon={Plus}
@@ -43,7 +43,7 @@ export default function EnquiriesScreen({
         keyOf={enquiry => String(enquiry.id)}
         empty={{
           icon: ClipboardList,
-          title: 'No enquiries yet',
+          title: 'No inquiries yet',
           message: 'Ask for a service and the office will get back to you.',
           action: { title: 'Request a service', onPress: request },
         }}
@@ -57,7 +57,7 @@ export default function EnquiriesScreen({
             </View>
             <AppText variant="heading">
               {enquiry.services.map(service => service.name).join(', ') ||
-                'General enquiry'}
+                'General inquiry'}
             </AppText>
             {enquiry.needed_on ? (
               <IconText

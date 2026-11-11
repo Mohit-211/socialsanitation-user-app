@@ -4,7 +4,7 @@ import type {
 } from '@react-navigation/native';
 import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import type { DocumentKind, ProfileRequestKind } from '../api/types';
+import type { DocumentKind } from '../api/types';
 
 export type TabParamList = {
   Home: undefined;
@@ -33,12 +33,8 @@ export type RootStackParamList = {
   Addresses: undefined;
   AddressForm: { id?: number } | undefined;
   AccountRequests: undefined;
-  AccountRequestForm: { kind?: ProfileRequestKind } | undefined;
+  AccountRequestForm: undefined;
   ChangePassword: undefined;
-  Help: undefined;
-  // Either way
-  Content: { kind: 'about' | 'terms' };
-  PrivacyPolicy: undefined;
 };
 
 export type RootScreenProps<Name extends keyof RootStackParamList> =

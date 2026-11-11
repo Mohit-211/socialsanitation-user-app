@@ -18,7 +18,7 @@ const VISIT: Record<VisitStatus, Label> = {
   ONGOING: { label: 'In progress', tone: 'info' },
   SUCCESS: { label: 'Completed', tone: 'success' },
   REJECTED: { label: 'Declined', tone: 'danger' },
-  CANCELLED: { label: 'Cancelled', tone: 'neutral' },
+  CANCELLED: { label: 'Canceled', tone: 'neutral' },
 };
 
 export const visitStatus = (status: VisitStatus): Label =>
@@ -43,7 +43,7 @@ const DOCUMENT: Record<string, Label> = {
   sent: { label: 'Due', tone: 'warning' },
   deposit_paid: { label: 'Deposit paid', tone: 'info' },
   overdue: { label: 'Overdue', tone: 'danger' },
-  cancelled: { label: 'Cancelled', tone: 'neutral' },
+  cancelled: { label: 'Canceled', tone: 'neutral' },
 };
 
 export const documentStatus = (status: string): Label =>

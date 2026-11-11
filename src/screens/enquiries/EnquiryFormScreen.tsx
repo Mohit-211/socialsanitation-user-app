@@ -73,13 +73,14 @@ export default function EnquiryFormScreen({
         return;
       }
       try {
-        const { message } = await sendEnquiry({
+        await sendEnquiry({
           service_ids: serviceIds,
           needed_on: toApiDate(neededOn),
           address_id: addressId,
           notes: notes.trim() || null,
         });
-        notify.success(message || 'Request sent.');
+        // Not the API's own message, which spells it "Enquiry".
+        notify.success('Inquiry sent.');
         navigation.replace('Enquiries');
       } catch (e) {
         notify.error(errorMessage(e));

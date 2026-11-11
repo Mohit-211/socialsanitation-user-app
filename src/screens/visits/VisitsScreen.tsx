@@ -25,7 +25,7 @@ export default function VisitsScreen({ navigation }: TabScreenProps<'Visits'>) {
   return (
     <Screen scroll={false} inTabs>
       <View style={styles.top}>
-        <Heading eyebrow="Your visits" title="Visits" size="display" />
+        <Heading eyebrow="Your bookings" title="Bookings" size="display" />
         <SegmentedControl
           options={FILTERS}
           value={filter}
@@ -40,9 +40,9 @@ export default function VisitsScreen({ navigation }: TabScreenProps<'Visits'>) {
           filter === 'UPCOMING'
             ? {
                 icon: CalendarDays,
-                title: 'No upcoming visits',
+                title: 'No upcoming bookings',
                 message:
-                  'When the office books a visit for you, it shows up here.',
+                  'When the office makes a booking for you, it shows up here.',
                 action: {
                   title: 'Request a service',
                   onPress: () => navigation.navigate('EnquiryForm'),
@@ -50,8 +50,8 @@ export default function VisitsScreen({ navigation }: TabScreenProps<'Visits'>) {
               }
             : {
                 icon: CalendarDays,
-                title: 'No past visits yet',
-                message: 'Finished and cancelled visits show up here.',
+                title: 'No past bookings yet',
+                message: 'Finished and canceled bookings show up here.',
               }
         }
         renderItem={visit => (

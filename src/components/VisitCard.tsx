@@ -16,7 +16,7 @@ export const visitTitle = (
 ) =>
   visit.title ||
   visit.services.map(service => service.name).join(', ') ||
-  `Visit ${visit.number}`;
+  `Booking ${visit.number}`;
 
 export default function VisitCard({
   visit,

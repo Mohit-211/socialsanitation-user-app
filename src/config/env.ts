@@ -1,6 +1,6 @@
 import Config from 'react-native-config';
 
-type EnvKey = 'API_BASE_URL' | 'PRIVACY_POLICY_URL';
+type EnvKey = 'API_BASE_URL';
 
 /**
  * Values read from .env at build time by react-native-config. After changing .env,
@@ -18,6 +18,3 @@ const required = (name: EnvKey): string => {
 
 // The API's version 2 root, without a trailing slash, e.g. https://api.socialsanitation.com/api/v2
 export const API_BASE_URL = required('API_BASE_URL').replace(/\/+$/, '');
-
-// The page the Privacy Policy screen opens.
-export const PRIVACY_POLICY_URL = required('PRIVACY_POLICY_URL');

@@ -96,3 +96,15 @@ export function startOfToday(): Date {
   const now = new Date();
   return new Date(now.getFullYear(), now.getMonth(), now.getDate());
 }
+
+/**
+ * Home's greeting, by the phone's own clock: good morning from 5 AM, good afternoon from noon,
+ * and good evening from 5 PM through the night.
+ */
+export function greeting(now: Date = new Date()): string {
+  const hour = now.getHours();
+  if (hour >= 5 && hour < 12) {
+    return 'Good morning';
+  }
+  return hour >= 12 && hour < 17 ? 'Good afternoon' : 'Good evening';
+}

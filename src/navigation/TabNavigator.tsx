@@ -12,8 +12,9 @@ import AccountScreen from '../screens/account/AccountScreen';
 import DocumentsScreen from '../screens/documents/DocumentsScreen';
 import HomeScreen from '../screens/home/HomeScreen';
 import VisitsScreen from '../screens/visits/VisitsScreen';
+import { usePushNotifications } from '../push/push';
 import { colors, fonts } from '../theme';
-import type { TabParamList } from './types';
+import type { RootScreenProps, TabParamList } from './types';
 
 const Tab = createBottomTabNavigator<TabParamList>();
 
@@ -32,7 +33,9 @@ const VisitsIcon = tabIcon(CalendarDays);
 const DocumentsIcon = tabIcon(FileText);
 const AccountIcon = tabIcon(CircleUserRound);
 
-export default function TabNavigator() {
+/** The signed-in app. It stays mounted under every other screen, so pushes are handled here. */
+export default function TabNavigator({ navigation }: RootScreenProps<'Tabs'>) {
+  usePushNotifications(() => navigation.navigate('Notifications'));
   return (
     <Tab.Navigator
       screenOptions={{
@@ -52,7 +55,7 @@ export default function TabNavigator() {
       <Tab.Screen
         name="Visits"
         component={VisitsScreen}
-        options={{ tabBarIcon: VisitsIcon }}
+        options={{ title: 'Bookings', tabBarIcon: VisitsIcon }}
       />
       <Tab.Screen
         name="Documents"

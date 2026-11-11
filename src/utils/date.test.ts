@@ -5,9 +5,33 @@ import {
   formatDay,
   formatTime,
   formatTimeRange,
+  greeting,
   todayInEastern,
   toApiDate,
 } from './date';
+
+describe('greeting', () => {
+  // 12 Nov 2026 at the given hour, on the phone's clock.
+  const at = (hour: number, minute = 0) => new Date(2026, 10, 12, hour, minute);
+
+  it('says good morning from 5 AM until noon', () => {
+    expect(greeting(at(5))).toBe('Good morning');
+    expect(greeting(at(11, 59))).toBe('Good morning');
+  });
+
+  it('says good afternoon from noon until 5 PM', () => {
+    expect(greeting(at(12))).toBe('Good afternoon');
+    expect(greeting(at(16, 59))).toBe('Good afternoon');
+  });
+
+  it('says good evening from 5 PM through the night', () => {
+    expect(greeting(at(17))).toBe('Good evening');
+    expect(greeting(at(23, 30))).toBe('Good evening');
+    expect(greeting(at(0, 15))).toBe('Good evening');
+    expect(greeting(at(1, 45))).toBe('Good evening');
+    expect(greeting(at(4, 59))).toBe('Good evening');
+  });
+});
 
 describe('formatDate', () => {
   it('shows an API calendar date without shifting it', () => {

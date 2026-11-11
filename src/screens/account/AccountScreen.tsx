@@ -10,14 +10,10 @@ import Screen from '../../components/Screen';
 import {
   Bell,
   ClipboardList,
-  Info,
+  Globe,
   KeyRound,
   LogOut,
   MapPin,
-  MessageCircleQuestionMark,
-  ScrollText,
-  ShieldCheck,
-  Trash2,
   UserCog,
 } from '../../components/icons';
 import { useRequest } from '../../hooks/useRequest';
@@ -25,6 +21,7 @@ import type { TabScreenProps } from '../../navigation/types';
 import { useSession } from '../../session/SessionProvider';
 import { colors, fonts, space, styles as theme } from '../../theme';
 import { formatPhone, initials } from '../../utils/format';
+import { openLink, WEBSITE_URL } from '../../utils/links';
 
 export default function AccountScreen({
   navigation,
@@ -91,7 +88,7 @@ export default function AccountScreen({
         <ListRow
           icon={UserCog}
           title="Account changes"
-          subtitle="Ask the office to change your name, email or phone"
+          subtitle="Ask the office to change your name, email or phone, or to delete your account"
           onPress={() => navigation.navigate('AccountRequests')}
         />
         <ListRow
@@ -104,7 +101,7 @@ export default function AccountScreen({
       <Group title="Services">
         <ListRow
           icon={ClipboardList}
-          title="Enquiries"
+          title="Inquiries"
           subtitle="Services you've asked about"
           onPress={() => navigation.navigate('Enquiries')}
         />
@@ -117,24 +114,10 @@ export default function AccountScreen({
 
       <Group title="Social Sanitation">
         <ListRow
-          icon={MessageCircleQuestionMark}
-          title="Help and contact"
-          onPress={() => navigation.navigate('Help')}
-        />
-        <ListRow
-          icon={Info}
-          title="About us"
-          onPress={() => navigation.navigate('Content', { kind: 'about' })}
-        />
-        <ListRow
-          icon={ScrollText}
-          title="Terms and conditions"
-          onPress={() => navigation.navigate('Content', { kind: 'terms' })}
-        />
-        <ListRow
-          icon={ShieldCheck}
-          title="Privacy policy"
-          onPress={() => navigation.navigate('PrivacyPolicy')}
+          icon={Globe}
+          title="socialsanitation.com"
+          subtitle="About us, privacy, terms and more"
+          onPress={() => openLink(WEBSITE_URL)}
         />
       </Group>
 
@@ -144,16 +127,6 @@ export default function AccountScreen({
           title="Sign out"
           destructive
           onPress={confirmSignOut}
-        />
-        <ListRow
-          icon={Trash2}
-          title="Delete account"
-          destructive
-          onPress={() =>
-            navigation.navigate('AccountRequestForm', {
-              kind: 'delete_account',
-            })
-          }
         />
       </Group>
     </Screen>

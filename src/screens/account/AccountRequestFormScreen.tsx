@@ -35,7 +35,6 @@ type Form = { kind: ProfileRequestKind | null; details: string };
 
 export default function AccountRequestFormScreen({
   navigation,
-  route,
 }: RootScreenProps<'AccountRequestForm'>) {
   const {
     control,
@@ -43,7 +42,7 @@ export default function AccountRequestFormScreen({
     watch,
     formState: { isSubmitting },
   } = useForm<Form>({
-    defaultValues: { kind: route.params?.kind ?? null, details: '' },
+    defaultValues: { kind: null, details: '' },
   });
   const kind = watch('kind');
   const deleting = kind === 'delete_account';

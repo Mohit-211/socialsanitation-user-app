@@ -22,9 +22,6 @@ import AddressFormScreen from '../screens/account/AddressFormScreen';
 import AccountRequestsScreen from '../screens/account/AccountRequestsScreen';
 import AccountRequestFormScreen from '../screens/account/AccountRequestFormScreen';
 import ChangePasswordScreen from '../screens/account/ChangePasswordScreen';
-import HelpScreen from '../screens/account/HelpScreen';
-import ContentScreen from '../screens/account/ContentScreen';
-import PrivacyPolicyScreen from '../screens/account/PrivacyPolicyScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -68,7 +65,6 @@ export default function RootNavigator() {
             name="ChangePassword"
             component={ChangePasswordScreen}
           />
-          <Stack.Screen name="Help" component={HelpScreen} />
         </Stack.Group>
       ) : (
         <Stack.Group>
@@ -87,8 +83,6 @@ export default function RootNavigator() {
           <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} />
         </Stack.Group>
       )}
-      <Stack.Screen name="Content" component={ContentScreen} />
-      <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicyScreen} />
     </Stack.Navigator>
   );
 }

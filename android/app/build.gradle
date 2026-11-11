@@ -1,6 +1,7 @@
 apply plugin: "com.android.application"
 apply plugin: "org.jetbrains.kotlin.android"
 apply plugin: "com.facebook.react"
+apply plugin: "com.google.gms.google-services"
 apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
 
 react {
@@ -8,9 +9,11 @@ react {
 }
 
 /**
- * Set this to true to run Proguard on Release builds to minify the Java bytecode.
+ * R8 shrinks and obfuscates the Java and Kotlin code of release builds. Its mapping file, the
+ * deobfuscation file Google Play asks for, goes into the app bundle, so Play reads crash reports
+ * and ANRs with the real class and method names.
  */
-def enableProguardInReleaseBuilds = false
+def enableProguardInReleaseBuilds = true
 
 /**
  * The JavaScriptCore flavour, used only when Hermes is turned off in gradle.properties.
@@ -81,6 +84,13 @@ android {
             signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+            // The native libraries' symbol tables go into the app bundle as well, so Google Play
+            // names the functions in native crashes and ANRs. Phones don't download them. FULL
+            // would add line numbers but makes the bundle four times bigger, almost all of it
+            // React Native's own code.
+            ndk {
+                debugSymbolLevel "SYMBOL_TABLE"
+            }
         }
     }
 }

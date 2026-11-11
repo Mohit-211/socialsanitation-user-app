@@ -13,27 +13,18 @@ import Eyebrow from '../../components/Eyebrow';
 import Heading from '../../components/Heading';
 import IconButton from '../../components/IconButton';
 import LinkButton from '../../components/LinkButton';
-import Rating from '../../components/Rating';
 import Screen from '../../components/Screen';
 import VisitCard from '../../components/VisitCard';
 import { Bell, Plus } from '../../components/icons';
 import { useRequest, type Request } from '../../hooks/useRequest';
 import type { TabScreenProps } from '../../navigation/types';
 import { colors, space } from '../../theme';
+import { greeting } from '../../utils/date';
 import { htmlToText } from '../../utils/html';
 import { needsAction } from '../../utils/status';
 
 const nextVisit = async () =>
   (await getVisits('UPCOMING', 1, 1)).items[0] ?? null;
-
-const greeting = () => {
-  const hour = new Date().getHours();
-  return hour < 12
-    ? 'Good morning'
-    : hour < 17
-      ? 'Good afternoon'
-      : 'Good evening';
-};
 
 export default function HomeScreen({ navigation }: TabScreenProps<'Home'>) {
   const profile = useRequest(getProfile);
@@ -71,7 +62,7 @@ export default function HomeScreen({ navigation }: TabScreenProps<'Home'>) {
       </View>
 
       <View style={styles.section}>
-        <Eyebrow>Next visit</Eyebrow>
+        <Eyebrow>Next booking</Eyebrow>
         <Section request={visit}>
           {next =>
             next ? (
@@ -83,7 +74,7 @@ export default function HomeScreen({ navigation }: TabScreenProps<'Home'>) {
               />
             ) : (
               <Card>
-                <AppText variant="heading">No visits booked</AppText>
+                <AppText variant="heading">No bookings yet</AppText>
                 <AppText variant="small">
                   Tell us what you need and the office will get back to you with
                   a quote and a date.
@@ -145,10 +136,6 @@ export default function HomeScreen({ navigation }: TabScreenProps<'Home'>) {
                 accessibilityLabel={service.name}
               >
                 <AppText variant="heading">{service.name}</AppText>
-                <Rating
-                  average={service.average_rating}
-                  count={service.rating}
-                />
                 {service.description ? (
                   <AppText variant="small" numberOfLines={2}>
                     {htmlToText(service.description)}

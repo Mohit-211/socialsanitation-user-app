@@ -25,7 +25,8 @@ play-store-credentials*.json
 .env.*
 !.env.example
 
-# Firebase native config files. The app no longer uses Firebase; this keeps old copies out of git.
+# Firebase config files for push notifications. Each developer downloads them from the Firebase
+# console (see README); they stay out of this public repository.
 **/google-services.json
 **/GoogleService-Info.plist
 

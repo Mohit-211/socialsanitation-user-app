@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useEffectEvent, useState } from 'react';
-import { Linking, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { getDocument, startSigning } from '../../api/documents';
 import { errorMessage } from '../../api/errors';
 import type { DocumentDetail } from '../../api/types';
@@ -26,6 +26,7 @@ import {
   formatDateTime,
 } from '../../utils/date';
 import { formatMoney } from '../../utils/format';
+import { openLink } from '../../utils/links';
 import { documentStatus, timelineStep } from '../../utils/status';
 
 type Fact = { label: string; value: string | number | null | undefined };
@@ -111,11 +112,11 @@ function factsOf(document: DocumentDetail): Fact[] {
     }
     case 'scope_of_work':
       return [
-        { label: 'Visit frequency', value: document.visit_frequency },
+        { label: 'Booking frequency', value: document.visit_frequency },
         { label: 'Service days', value: document.service_days },
         { label: 'Service time', value: document.service_time },
         { label: 'Crew size', value: document.crew_size },
-        { label: 'Hours per visit', value: document.hours_per_visit },
+        { label: 'Hours per booking', value: document.hours_per_visit },
         { label: 'Notes', value: document.notes },
       ];
   }
@@ -127,9 +128,6 @@ const filesOf = (document: DocumentDetail) => {
     'signed_file_url' in document ? document.signed_file_url : null;
   return { file, signed: signed && signed !== file ? signed : null };
 };
-
-const open = (url: string) =>
-  Linking.openURL(url).catch(() => notify.error("Couldn't open the link."));
 
 export default function DocumentDetailScreen({
   navigation,
@@ -193,7 +191,7 @@ export default function DocumentDetailScreen({
                 : 'Pay now'
             }
             icon={CreditCard}
-            onPress={() => open(payUrl)}
+            onPress={() => openLink(payUrl)}
           />
         ) : undefined
       }
@@ -253,7 +251,7 @@ export default function DocumentDetailScreen({
                   <Eyebrow>Areas</Eyebrow>
                   {doc.areas.map(area => {
                     const counts = [
-                      ['desks and bins', area.num_desks_trash_cans],
+                      ['desks and trash cans', area.num_desks_trash_cans],
                       ['restrooms', area.restrooms],
                       ['stalls', area.stalls],
                       ['sinks', area.sinks],
@@ -318,7 +316,7 @@ export default function DocumentDetailScreen({
                       title="Open the PDF"
                       icon={ExternalLink}
                       variant="outline"
-                      onPress={() => open(files.file!)}
+                      onPress={() => openLink(files.file!)}
                     />
                   ) : null}
                   {files.signed ? (
@@ -326,7 +324,7 @@ export default function DocumentDetailScreen({
                       title="Open the signed copy"
                       icon={ExternalLink}
                       variant="outline"
-                      onPress={() => open(files.signed!)}
+                      onPress={() => openLink(files.signed!)}
                     />
                   ) : null}
                 </View>

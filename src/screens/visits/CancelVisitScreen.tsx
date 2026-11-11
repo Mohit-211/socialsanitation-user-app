@@ -33,7 +33,7 @@ export default function CancelVisitScreen({
 
   return (
     <Screen
-      header={<Header title="Cancel visit" />}
+      header={<Header title="Cancel booking" />}
       footer={
         <Button
           title="Request cancellation"
@@ -46,7 +46,7 @@ export default function CancelVisitScreen({
       <Heading
         eyebrow="Request cancellation"
         title="Ask the office to cancel"
-        description="The visit stays booked until the office replies. They may offer to move it to another day instead."
+        description="The booking stays in place until the office replies. They may offer to move it to another day instead."
       />
       <FormTextField
         control={control}

@@ -8,14 +8,11 @@ import Card from '../../components/Card';
 import Header from '../../components/Header';
 import Heading from '../../components/Heading';
 import Loadable from '../../components/Loadable';
-import Rating from '../../components/Rating';
 import RichText from '../../components/RichText';
 import Screen from '../../components/Screen';
-import { Star } from '../../components/icons';
 import { useRequest } from '../../hooks/useRequest';
 import type { RootScreenProps } from '../../navigation/types';
-import { colors, space } from '../../theme';
-import { formatDate } from '../../utils/date';
+import { space } from '../../theme';
 
 export default function ServiceDetailScreen({
   navigation,
@@ -39,10 +36,7 @@ export default function ServiceDetailScreen({
       <Loadable {...service}>
         {data => (
           <>
-            <View style={styles.section}>
-              <Heading eyebrow="Service" title={data.name} size="display" />
-              <Rating average={data.average_rating} count={data.rating} />
-            </View>
+            <Heading eyebrow="Service" title={data.name} size="display" />
             {data.description ? <RichText html={data.description} /> : null}
 
             {data.checklists.length > 0 ? (
@@ -62,38 +56,6 @@ export default function ServiceDetailScreen({
                 ))}
               </View>
             ) : null}
-
-            {data.reviews.length > 0 ? (
-              <View style={styles.section}>
-                <Heading eyebrow="From our clients" title="Reviews" />
-                {data.reviews.map(review => {
-                  const stars = Math.round(Number(review.rating)) || 0;
-                  return (
-                    <Card key={review.id}>
-                      <View
-                        style={styles.stars}
-                        accessibilityLabel={`${stars} out of 5 stars`}
-                      >
-                        {[1, 2, 3, 4, 5].map(n => (
-                          <Star
-                            key={n}
-                            size={16}
-                            color={n <= stars ? colors.warning : colors.border}
-                            fill={n <= stars ? colors.warning : 'transparent'}
-                          />
-                        ))}
-                      </View>
-                      {review.review ? (
-                        <AppText variant="body">{review.review}</AppText>
-                      ) : null}
-                      <AppText variant="caption">
-                        {formatDate(review.created_at)}
-                      </AppText>
-                    </Card>
-                  );
-                })}
-              </View>
-            ) : null}
           </>
         )}
       </Loadable>
@@ -103,5 +65,4 @@ export default function ServiceDetailScreen({
 
 const styles = StyleSheet.create({
   section: { gap: space.sm },
-  stars: { flexDirection: 'row', gap: 2 },
 });

@@ -13,6 +13,7 @@ import Notice from '../../components/Notice';
 import Screen from '../../components/Screen';
 import { notify } from '../../components/Toaster';
 import type { RootScreenProps } from '../../navigation/types';
+import { pushToken } from '../../push/push';
 import { useSession } from '../../session/SessionProvider';
 import { space } from '../../theme';
 import { EMAIL } from '../../utils/validation';
@@ -61,7 +62,11 @@ export default function SignInScreen({
   const submit = handleSubmit(async form => {
     setUnverifiedEmail(null);
     try {
-      const result = await signIn(form.email.trim(), form.password);
+      const result = await signIn(
+        form.email.trim(),
+        form.password,
+        await pushToken(),
+      );
       await startSession({ token: result.token, expiresAt: result.expires_at });
     } catch (e) {
       const message = errorMessage(e);
@@ -97,7 +102,7 @@ export default function SignInScreen({
       <Heading
         eyebrow="Welcome back"
         title="Sign in"
-        description="See your visits, sign documents and pay invoices."
+        description="See your bookings, sign documents and pay invoices."
         size="display"
       />
       <View style={styles.fields}>

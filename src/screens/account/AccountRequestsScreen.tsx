@@ -40,7 +40,7 @@ export default function AccountRequestsScreen({
           icon: UserCog,
           title: 'No requests yet',
           message:
-            'The office changes your name, email or phone for you. Ask here and their reply shows up on this page.',
+            'Ask the office to change your name, email or phone, or to delete your account. Their reply shows up on this page.',
           action: { title: 'Request a change', onPress: ask },
         }}
         renderItem={request => (

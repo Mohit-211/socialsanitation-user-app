@@ -277,9 +277,6 @@ export type Service = {
   id: number;
   name: string;
   description: string | null;
-  average_rating: number | null;
-  /** The number of reviews, despite the name. */
-  rating: number | null;
 };
 
 export type ServiceDetail = Service & {
@@ -288,26 +285,4 @@ export type ServiceDetail = Service & {
     heading_title: string;
     tasks: { id: number; task: string }[];
   }[];
-  reviews: {
-    id: number;
-    rating: string;
-    review: string | null;
-    created_at: string;
-  }[];
-};
-
-export type ContentSection = {
-  id: number;
-  heading: string;
-  description: string;
-  images?: { id: number; url: string }[];
-};
-
-export type Faq = { id: number; question: string; answer: string };
-
-export type ContactDetails = {
-  id: number;
-  email: string | null;
-  contact_number: string | null;
-  address: string | null;
 };

@@ -1,5 +1,5 @@
-// Turns the HTML that the office's editor saves (service descriptions, About us, terms) into
-// plain blocks the app draws with its own text styles. Inline formatting is dropped.
+// Turns the HTML that the office's editor saves for service descriptions into plain blocks
+// the app draws with its own text styles. Inline formatting is dropped.
 
 export type Block = { type: 'heading' | 'paragraph' | 'bullet'; text: string };
 
